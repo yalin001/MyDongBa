@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cgb1904.sys.dao.CommentDao">
+  	<!-- 保存用户评论 -->
+  	<insert id="saveObject" parameterType="com.cgb1904.sys.po.Comment" useGeneratedKeys="true" keyProperty="id">
+  		insert into sys_comments
+  		(posting_username,content,address,browse,osname,createdTime,createdUser)
+  		values
+		(#{postingUsername},#{content},#{address},#{browse},#{osname},now(),#{createdUser})  		
+  	</insert>
+  	
+  	<!-- 关联用户表 基于用户id查询用户评论 用于个人中心 -->
+  	<select id="findObjects" resultType="com.cgb1904.sys.po.Comment">
+  		select * from sys_comments where createdUser=(select username from sys_users where id=#{id})
+  	</select>
+  	
+  	<!-- 基于评论id删除评论 用于个人中心 -->
+  	<delete id="deleteObject">
+  		delete from sys_comments where id=#{id}
+  	</delete>
+  	
+  	<!-- 基于评论id修改评论 个人中心 -->
+  	<update id="updateObject">
+  		update from sys_comments set content=#{content} where id=#{id}
+  	</update>
+  	
+  	<!-- 基于帖子作者name 查询所有评论 -->
+  	<select id="findCommentsByPost" resultType="com.cgb1904.sys.po.Comment">
+  		select * from sys_comments where posting_username=#{authorName}
+  	</select>
+  	
+  </mapper>

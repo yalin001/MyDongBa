@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cgb1904.sys.dao.ReplyDao">
+  	
+  	<!-- 保存用户回复 -->
+  	<insert id="saveObject" useGeneratedKeys="true" keyProperty="id">
+  		insert into sys_reply_comments 
+  		(content,address,
+  		browse,osname,createdTime,
+  		createdUser,commentUser,comment_id)
+  		values
+  		(#{content},#{adress},
+  		#{browse},#{osname},now(),
+  		#{createdUser},#{commentUser},#{commentId})
+  	</insert>
+  	
+  	<select id="findObjects">
+  		select * from sys_reply_comments where comment_id=#{id}
+  	</select>
+  	
+  </mapper>
+  

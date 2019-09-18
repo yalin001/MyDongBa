@@ -1,0 +1,94 @@
+<div>
+<h3>发帖</h3>
+  <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <colgroup><col width="140"><col></colgroup>
+    <tbody>
+
+<tr>
+  <th>文章标题</th>
+  <td>
+    <label>
+      <input  required="required" id="titleId" maxlength="80" name="title" size="60" type="text">
+    </label>
+  </td>
+</tr>
+
+<tr>
+  <th>文章类型</th>
+  <td>
+    <label>
+      <input required="required" id="typeId" maxlength="80" name="type" size="60" type="text">
+    </label>
+  </td>
+</tr>
+
+<tr>
+  <th valign="top">文章内容</th>
+  <td>
+    
+    <div class="body_count">
+    	<textarea id="contentId" cols="62" rows="20" name="content"></textarea>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <th>&nbsp;</th>
+  <td>
+    
+    <div >
+    	<input type="file" name="">
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <th>&nbsp;</th>
+  <td>
+    
+    <div >
+    	<input id="createdTimeId" type="date" name="createdTime">
+    </div>
+  </td>
+</tr>    
+    <tr>
+      <th>&nbsp;</th>
+      <td>
+           <button id="publishId" type="submit">发表</button>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+<script src="back_manage/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#publishId").click(doPublish)	
+	});
+	
+	function doPublish(){
+		
+		var postUrl = "post/doPost";
+		var params = doGetEditFormData();
+		$.post(postUrl,params,function(result){
+			 if(result.state==1){
+				 alert(result.message);
+				 location.href ="doLoginSuccess";
+			 }else{
+				 alert(result.message);
+				 location.href ="doLoginUI";
+			 }
+		 })
+	}
+	
+	function doGetEditFormData(){
+		 var params={
+		      "title":$("#titleId").val(),
+		      "type":$("#typeId").val(),
+		      "content":$("#contentId").val(),
+		      "replyNumbers":0
+		 }
+		 return params;
+		 
+	 }
+</script>

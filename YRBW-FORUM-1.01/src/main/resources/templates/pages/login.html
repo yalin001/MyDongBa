@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<link href="user/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link
+	href="http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="signupform">
+		<h1></h1>
+		<div class="container">
+
+			<div class="agile_info">
+				<div class="w3l_form">
+					<div class="left_grid_info">
+						<h3>欢迎您！</h3>
+
+						<p>
+							我们BBS论坛按照栏目不同，一般把发帖子最多的网友叫做<span style="color: red;">斑竹</span>（版主），斑竹具有相对意义上的管理权，可以删除论坛中发言。请我们的用户进行疯狂的灌水（留言）行为，争当斑竹
+						</p>
+
+					</div>
+				</div>
+				<div class="w3_info">
+					<h2>登录</h2>
+					<div class="input-group">
+
+						<input id="usernameId" type="text" placeholder="用户名"
+							required="required" name="username">
+					</div>
+					<div class="input-group">
+
+						<input id="passwordId" type="Password" placeholder="密码"
+							required="required" name="password">
+					</div>
+					<input id="rememberId" type="checkbox" value="remember-me" />
+					<h4>点击我，记住密码</h4>
+					<button id="login" class="btn btn-danger btn-block" type="submit">登录</button>
+					<br />
+					<div id="resultMessage"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+		<div class="footer">
+
+			<p>
+				<a target="_blank"></a>
+			</p>
+		</div>
+	</div>
+	<!-- jquery-1.12.3.min.js -->
+	<script src="back_manage/js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#login").click(doLogin);
+		});
+		function doLogin() {
+			var params = {
+				username : $("#usernameId").val(),
+				password : $("#passwordId").val(),
+				isRememberMe : $("#rememberId").prop("checked")
+			}
+
+			var url = "login/doLogin";
+			console.log("params", params);
+			$.post(url, params, function(result) {
+				if (result.state == 1) {
+					//跳转到indexUI对应的页面
+					//doIndexUI要修改，改成主页面路径
+					$("#resultMessage").text("result.message");
+					location.href = "doLoginSuccessing?t=" + Math.random();
+				} else {
+					$("#resultMessage").text(result.message);
+				}
+				return false;//防止刷新时重复提交
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>月入百万论坛</title>
+<style type="text/css">
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+.postTitleId{
+	text-decoration:none;
+	font-weight:bold;
+	font-size:20px;
+	font-family:'宋体' ,sans-serif;
+}
+
+.header {
+	background: #66CCFF;
+}
+
+.header	ul {
+	float: right;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.header li {
+	display: inline-block;
+}
+
+.header a {
+	display: block;
+	color: #999;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.hh {
+	top: 30px;
+	height: 150px;
+	width: 1278px;
+}
+
+.left {
+	height: 676px;
+	width: 75%;
+	border: 1px solid #ccc;
+	float: left;
+}
+
+.left ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: #eaebec;
+}
+
+.left li {
+	display: inline-block;
+	border-right: 1px solid #bbb;
+}
+
+.left li a {
+	display: block;
+	color: #4f4f4f;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.left li a :hover :not(.active){
+	background-color:#ddd;
+}
+
+.left input {
+	width: 200px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	height: 25px;
+	border-radius: 8px;
+}
+
+.left button {
+	border: none;
+	width: 50px;
+	height: 35px;
+	line-height: 32px;
+	font-size: 16px;
+	background: #fd4c5d;
+	color: #4f4f4f;
+	border-radius: 0 3px 3px 0;
+	padding: 0;
+}
+
+.right_up {
+	height: 200px;
+	width: 24%;
+	border: 1px solid #ccc;
+	float: right;
+	background: #eaebec;
+}
+
+.right_down {
+	height: 250px;
+	width: 24%;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	float: right;
+	background: #eaebec;
+}
+
+.right_down a {
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.time {
+	font-size: 12px;
+}
+
+.title a {
+	text-decoration: none;
+}
+
+.tc a {
+	text-decoration: none;
+}
+
+.zebra th {
+	padding: 10px 0px;
+	background: #069;
+	color: white;
+}
+
+.footer	ul {
+	list-style-type: none;
+}
+
+.footer li {
+	padding: 2px 4px;
+	display: inline-block;
+}
+
+.footer a {
+	display: block;
+	color: #999;
+	text-decoration: none;
+	font-size: 16px;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<ul>
+			<span style="font-size: 14px;">欢迎您，请</span>
+			<li><a class="active" href="doLoginUI">登录</a></li>
+			<li><a href="doRegisterUI">注册</a></li>
+			<li><a href="doConnectUI">关于我们</a></li>
+		</ul>
+	</div>
+	<div class="hh">
+		<img src="user/images/logo.png" height="149" width="200">
+	</div>
+	<div class="left">
+		<ul class="up-menu">
+			<li><a href="doIndexUI">论坛首页</a></li>
+			<li><a href="javasrcipt:;" id="load-essential-post">精华帖子</a></li>
+			<li><a href="javasrcipt:;" id="load-block">版块专题</a></li>
+			<li><a href="javasrcipt:;">头条</a></li>
+			<li><a href="javasrcipt:;" id="load-publish">我要发帖</a></li>
+			<input type="text" name="" id="search-content">
+			<button type="submit" id="load-search">查找</button>
+		</ul>
+		<div id="mainContext">
+		<div class="forum-body">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				class="table_list parent_forum ">
+				<colgroup>
+					<col>
+					<col width="60px">
+					<col width="120px">
+					<col width="60px">
+					<col width="120px">
+					<col width="60px">
+				</colgroup>
+				<thead>
+					<tr class="zebra">
+						<th>标题</th>
+						<th class="tc">类型</th>
+						<th class="tc">提问人</th>
+						<th class="tc">回复数</th>
+						<th class="tc">最后更新时间</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr>
+						<td colspan="10">数据加载中...</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="pageId" class="box-footer clearfix"></div>
+		</div>
+	</div>
+	<div class="right_up">
+		<span style="color: blue; margin-left: 120px; font-size: 20px;">公告栏</span>
+		<hr />
+		<div id="noticesId">公告加载中...</div>
+	</div>
+	<div class="right_down">
+		<span style="color: blue; margin-left: 120px; font-size: 20px;">版面简介</span>
+		<hr />
+		<span style="font-size: 16px;">现任版主：</span>
+		<span><a href="javasrcipt:;">陈周鑫</a></span>
+		<span><a href="javasrcipt:;">郭金</a></span>
+		<span><a href="javasrcipt:;">阮学延</a></span>
+		<span><a href="javasrcipt:;">王耀先</a></span> 
+		<span><a href="javasrcipt:;">薛亚林</a></span>
+	</div>
+	<footer style="float: left;">
+		<div class="footer"></div>
+		<hr />
+		<dd class="foot_contact">
+			<a href="javascript:void(0)" target="_blank" class="qq qqcustomer_s">网站客服</a>
+			<span class="interval">|</span> 
+			<a href="javascript:void(0)"
+				target="_blank" class="qq">论坛客服</a> 
+			<span class="interval">|</span>
+			<a href="javascript:void(0)" target="_blank" class="weibo">微博客服</a> 
+			<span class="interval">|</span> 
+			<a href="javascript:void(0)"
+				target="_blank" class="email" title="联系邮箱">联系邮箱</a> 
+			<span class="interval">|</span> 
+			<span class="phone" title="服务热线">100-100-0100</span>
+			<span class="interval">|</span> 
+			<span>版权所有</span>
+		</dd>
+	</footer>
+<script src="back_manage/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#load-publish").click(function(){
+			$("#mainContext").load("doPublishUI");
+		});
+		$("#pageId").load("doPageUI",function(){
+			doGetObjects();
+		});
+		$.post("notice/doFindLatestNotice",function(result){
+			$("#noticesId").html(result.data.content);
+		});
+		$("#load-search").click(doQueryObjects);
+		
+	});
+	
+	function doGetObjects() {
+		//debugger;//断点调试
+		//1.定义url和参数
+		var url = "post/doFindPageObjects"
+		var pageCurrent = $("#pageId").data("pageCurrent");
+		//pageCurrent参数在没有赋值的情况下，默认初始值应该为1.
+		if (!pageCurrent)
+			pageCurrent = 1;
+		var params = {
+			"pageCurrent" : pageCurrent
+		};//pageCurrent=2
+		var title = $("#search-content").val();
+		if (title) {
+			params.title = title;
+		}
+		//2.发起异步请求
+		$.getJSON(url, params, function(result) {
+			doHandleResponseResult(result);
+		});//特殊的ajax函数
+	}
+
+	function doQueryObjects() {
+		$("#pageId").data("pageCurrent", 1);
+		doGetObjects();
+	}
+
+	//jquary
+	function doHandleResponseResult(result) {//result=JsonResult
+		//判定响应状态（1表示正常数据）
+		if (result.state == 1) {
+			//1.呈现记录信息
+			doSetTableBodyRows(result.data.records);
+			//2.呈现分页信息
+			doSetPagination(result.data);
+		} else {
+			//呈现错误信息
+			alert(result.message);
+		}
+	}
+	//将记录呈现在table内部的tbody中
+	function doSetTableBodyRows(records) {
+		//1.获取tbody对象，并清空tBody中的数据
+		var tBody = $("#tbody");
+		tBody.empty();
+		//2.迭代records，并将记录追加tbody中
+		for (var i = 0; i < records.length; i++) {
+			//以自执行函数方法获取参数，解决获取值始终为最后一个值的问题
+			(function(i){
+				var data = records[i]; 
+				//2.1创建tr对象
+				var tr = $("<tr></tr>");
+				//2.2创建多个td对象（一行多列）
+				var tds = doCreateTds(data,i);
+				//2.3将td追加到tr中
+				tr.append(tds);
+				//2.4将tr追加到tbody中
+				tBody.append(tr);
+				$("#post"+i).on("click","a",function(){
+					doWatchPosts(data);
+				});
+			}(i))
+		}
+	}
+	
+	function doWatchPosts(data){
+		var params = {
+				"id": data.id,
+				"username": null
+		};
+		$.post("post/doWatchPost",params,function(result){
+			if(result.state==1){
+				location.href = "doArticleUI?id="+params.id;
+			}else{
+				alert("error");
+			}
+		})
+	}
+	
+	function doCreateTds(data,i) {
+		var tds = "<td id='post"+ i 
+		+ "'><a class='postTitleId' href='javasrcipt:;' >" 
+		+ data.title + "</a></td>" + "<td>" + data.type + "</td>"
+				+ "<td>" + data.authorUsername + "</td>" + "<td>"
+				+ data.replyNumbers + "</td>" + "<td>"
+				+ new Date(data.modifiedTime).toLocaleString() + "</td>"
+		return tds;
+	}
+</script>
+</body>
+</html>

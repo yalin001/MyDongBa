@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cgb1904.sys.dao.SysManagerDao">
+ <select id="findPageObjects"
+             resultType="com.cgb1904.sys.po.SysManager">
+           select * from sys_managers
+           <include refid="queryWhereId"/>
+           limit #{startIndex},#{pageSize}
+     </select>
+
+ <select id="getRowCount"
+             resultType="int">
+         select count(*) from sys_managers
+         <include refid="queryWhereId"/>
+     </select>
+     
+      <insert id="insertObject"
+           parameterType="com.cgb1904.sys.po.SysManager"
+           useGeneratedKeys="true"
+           keyProperty="id">
+      insert into sys_managers
+      (username,password,email,mobile,salt,
+      createdTime,modifiedTime)
+      values
+    (#{username},#{password},#{email},#{mobile},#{salt},
+      now(),#{modifiedTime})
+   </insert>
+     
+     
+      <select id="findManagerByUserName"
+           resultType="com.cgb1904.sys.po.SysManager">
+      select *
+      from sys_managers  
+      where username=#{username}
+   </select>
+     
+      <update id="updatePassword">
+         update sys_managers
+         set password=#{password},
+             salt=#{salt},
+             modifiedTime=now()
+         where id=#{id}
+</update>
+    <!--  <select id="findObjectById"
+           parameterType="int"
+           resultType="com.cgb1904.sys.po.SysManager">
+           select * 
+           from sys_managers   
+           where id=#{id}     
+   </select>
+     
+     <update id="updateObject" parameterType="com.cgb1904.sys.po.SysManager" >
+          update sys_managers
+          <set>
+             <if test="username!=null and username!=''">
+               username=#{username},
+             </if>
+             <if test="password!=null and password!=''">
+               password=#{password},
+             </if>
+             <if test="email!=null and email!=''">
+                  email=#{email},
+             </if>
+             <if test="mobile!=null and mobile!=''">
+                mobile=#{mobile},
+             </if>
+              modifiedTime=now() 
+          </set>
+          where id=#{id}      
+   </update> -->
+     
+     <sql id="queryWhereId">
+       <where>
+              <if test="username!=null and username!=''">
+                 username like concat("%",#{username},"%")
+              </if>
+       </where>
+     </sql>
+
+</mapper>

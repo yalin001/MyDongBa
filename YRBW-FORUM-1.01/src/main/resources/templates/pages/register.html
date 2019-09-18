@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+
+<link href="user/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link
+	href="http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="signupform">
+		<h1></h1>
+		<div class="container">
+
+			<div class="agile_info">
+				<div class="w3l_form">
+					<div class="left_grid_info">
+						<h3>欢迎您！</h3>
+
+						<p>我们的月入百万论坛是由一些有志于此道的爱好者建立，
+							对所有人都免费开放。而且，由于BBS的参与人众多，因此各方面的话题都不乏热心者。
+							在这里，打破了交流的空间和时间限制，所有人都不用害怕暴露自己真实的社会身份， 每个人都处于对等的位置，可以就任何问题进行讨论。</p>
+
+					</div>
+				</div>
+				<div class="w3_info">
+					<h2 style="text-align: center">注册</h2>
+						<div class="input-group">
+
+							<div class="tips">用户名:</div>
+							<input id="usernameId" type="text" placeholder="4到16位（字母，数字，下划线）"
+								required="required" name="username">
+							<div style="float:right; display:none">
+							<img id="check_username" src="" style="vertical-align:middle; right:0px; height:20px; width:20px">
+							</div>
+						</div>
+						<div class="input-group">
+
+							<div class="tips">密码:</div>
+							<input id="passwordId" type="Password" placeholder="最少6位(数字,字母)"
+								required="required" name="password">
+							<div style="float:right; display:none">
+							<img id="check_password" src="" style="vertical-align:middle; right:0px; height:20px; width:20px">
+							</div>
+						</div>
+						<div class="input-group">
+
+							<div class="tips">密码确认:</div>
+							<input id="confirmPasswordId" type="Password" placeholder="确认密码"
+								required="required" name="confirm_password">
+							<div style="float:right; display:none">
+							<img id="check_confirmPassword" src="" style="vertical-align:middle; right:0px; height:20px; width:20px">
+							</div>
+						</div>
+						<div class="input-group">
+
+							<div class="tips">电话号码:</div>
+							<input id="phoneId" type="text" placeholder="电话号码"
+								required="required" name="tel">
+							<div style="float:right; display:none">
+							<img id="check_phone" src="" style="vertical-align:middle; right:0px; height:20px; width:20px">
+							</div>
+						</div>
+						<div class="input-group">
+
+							<div class="tips">电子邮箱:</div>
+							<input id="emailId" type="text" placeholder="email"
+								required="required" name="addr">
+							<div style="float:right; display:none">
+							<img id="check_email" src="" style="vertical-align:middle; right:0px; height:20px; width:20px">
+							</div>
+						</div>
+						<!-- <div id="check_email" class="check"></div> -->
+						<button id="register" class="btn btn-danger btn-block" type="submit">注册</button>
+						<br/>
+						<div id="resultMessage" ></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+		<div class="footer">
+
+			<p>
+				<a target="_blank"></a>
+			</p>
+		</div>
+	</div>
+
+	<script src="back_manage/js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript">
+	var check_username_result;
+	var check_password_result;
+	var check_confirmPassword_result;
+	var check_email_result;
+	var check_phone_result;
+	$(function(){
+		check();
+		$("#register").click(doSaveOrUpdate);
+	});
+	
+	function doSaveOrUpdate(){
+		 if(check_username_result && check_password_result && check_confirmPassword_result
+				 && check_email_result && check_phone_result){
+			 //1.url
+			 var insertUrl="user/doSaveObject";
+			 //2.获取表单数据
+			 var params = doGetEditFormData();
+			 //3.发起异步请求
+			 $.post(insertUrl,params,function(result){
+				 if(result.state==1){
+					 $("#resultMessage").text("regist success!");
+					 alert("register success!");
+					 location.href ="doLoginUI?t="+Math.random();
+				 }else{
+					 $("#resultMessage").text("regist error!");
+				 }
+			 })
+		 }else{
+			 $("#resultMessage").text("regist error!");
+		 }
+	 }
+	function doGetEditFormData(){
+		 var params={
+		      "username":$("#usernameId").val(),
+		      "password":$("#passwordId").val(),
+		      "email":$("#emailId").val(),
+		      "mobile":$("#phoneId").val()
+		 }
+		 console.log(params);
+		 return params;
+		 
+	 }
+	function check(){
+		document.getElementById("usernameId").onblur = function () {
+		//判断这个文本框中输入的是不是正确的用户名格式:4到16位（字母，数字，下划线）
+		 	var reg = /^[a-zA-Z0-9_]{4,16}$/;
+		  	if (reg.test(this.value)) {
+		  		$("#check_username").attr("src","user/images/true.png");
+		  		$("#check_username").parent().css("display","block");
+		  		check_username_result = true;
+		  	} else {
+		  		$("#check_username").attr("src","user/images/false.png");
+		  		$("#check_username").parent().css("display","block");
+		  		check_username_result = false;
+		  	}
+		};
+		document.getElementById("passwordId").onblur = function () {
+		//判断这个文本框中输入的是不是正确的密码格式:最少6位(数字,字母)
+		 	var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+		  	if (reg.test(this.value)) {
+		  		$("#check_password").attr("src","user/images/true.png");
+		  		$("#check_password").parent().css("display","block");
+		  		check_password_result = true;
+		  	} else {
+		  		$("#check_password").attr("src","user/images/false.png");
+		  		$("#check_password").parent().css("display","block");
+		  		check_password_result = false;
+		  	}
+		};
+		document.getElementById("confirmPasswordId").onblur = function () {
+		//判断这个文本框中输入的是不是正确的确认密码
+		  	if (this.value==$("#passwordId").val()) {
+		  		$("#check_confirmPassword").attr("src","user/images/true.png");
+		  		$("#check_confirmPassword").parent().css("display","block");
+		  		check_confirmPassword_result = true;
+		  	} else {
+		  		$("#check_confirmPassword").attr("src","user/images/false.png");
+		  		$("#check_confirmPassword").parent().css("display","block");
+		  		check_confirmPassword_result = false;
+		  	}
+		};
+		
+		document.getElementById("phoneId").onblur = function () {
+		//判断这个文本框中输入的是不是电话号码
+		 	var reg = /^1(3|4|5|7|8)\d{9}$/;
+		  	if (reg.test(this.value)) {
+		  		$("#check_phone").attr("src","user/images/true.png");
+		  		$("#check_phone").parent().css("display","block");
+		  		check_phone_result = true;
+		  	} else {
+		  		$("#check_phone").attr("src","user/images/false.png");
+		  		$("#check_phone").parent().css("display","block");
+		  		check_phone_result = false;
+		  	}
+		};
+		
+		//获取文本框,注册失去焦点的事件
+		document.getElementById("emailId").onblur = function () {
+		//判断这个文本框中输入的是不是邮箱
+		 	var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+		  	if (reg.test(this.value)) {
+		  		$("#check_email").attr("src","user/images/true.png");
+		  		$("#check_email").parent().css("display","block");
+		  		check_email_result = true;
+		  	} else {
+		  		$("#check_email").attr("src","user/images/false.png");
+		  		$("#check_email").parent().css("display","block");
+		  		check_email_result = false;
+		  	}
+		};
+	}
+	</script>
+</body>
+</html>

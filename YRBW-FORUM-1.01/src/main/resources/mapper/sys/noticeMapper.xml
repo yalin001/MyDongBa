@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cgb1904.sys.dao.NoticeDao">
+  	
+  	<select id="findLatestNotice" resultType="com.cgb1904.sys.po.Notice">
+  		select * from sys_notices ORDER BY createdTime DESC limit 1
+  	</select>
+  	
+  	<insert id="saveObject" useGeneratedKeys="true" keyProperty="id">
+  		insert into sys_notices 
+  		(username,content,createdTime,createdManager) 
+  		values 
+  		(#{username},#{content},now(),#{createdManager})
+  	</insert>
+  	
+  	<select id="findObjects" resultType="com.cgb1904.sys.po.Notice">
+  		select * from sys_notices where id=#{id}
+  	</select>
+  	
+  	<update id="updateObject">
+  		update from sys_notices set 
+  		username=#{username},content=#{content},
+  		createdTime=now(),createdManager=#{createdManager}
+  		where id=#{id}
+  	</update>
+  	
+  	<delete id="deleteObject">
+  		delete from sys_notices where id=#{id}
+  	</delete>
+  </mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cgb1904.sys.dao.PostDao">
+
+	<!-- 保存用户发帖 -->
+	<insert id="saveObject" parameterType="com.cgb1904.sys.po.Post"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sys_posts
+		(block_id,author_username,
+		title,type,content,createdTime,
+		modifiedTime,reply_numbers)
+		values
+		(#{blockId},#{authorUsername},
+		#{title},#{type},#{content},now(),
+		now(),#{replyNumbers})
+	</insert>
+
+	<!-- 基于帖子id查询用户发帖记录 用于个人中心页面 -->
+	<select id="findPost" resultType="com.cgb1904.sys.po.Post">
+		select * from sys_posts where id=#{id}
+	</select>
+
+	<!-- 关联用户表 基于用户id查询用户发帖记录 用于个人中心页面 -->
+	<select id="findObjects" resultType="com.cgb1904.sys.po.Post">
+		select * from sys_posts where author_username=(select username from
+		sys_users where id=#{id})
+	</select>
+
+	<!-- 基于帖子id删除单个帖子 用于个人中心 -->
+	<delete id="deleteObject">
+		delete from sys_posts where id={#id}
+	</delete>
+
+	<!-- 基于帖子id修改帖子 用于个人中心 -->
+	<update id="updateObject">
+		update from sys_posts set block_id=#{blockId},
+		title=#{title},type=#{type},content=#{content},
+		modifiedTime=now() where id=#{id}
+	</update>
+
+	<select id="findPageObjects"
+		resultType="com.cgb1904.sys.po.Post">
+		select
+		id,author_username,title,type,content,createdTime,modifiedTime,reply_numbers
+		<include refid="queryWhereId" />
+		order by createdTime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="getRowCount" resultType="int">
+		select count(*)
+		<include refid="queryWhereId" />
+	</select>
+	<!-- 借助此元素对共性数据进行提取 -->
+	<sql id="queryWhereId">
+		from sys_posts
+		<where>
+			<if test="title!=null and title!=''">
+				title like concat("%",#{title},"%")
+			</if>
+		</where>
+	</sql>
+
+</mapper>
